@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { AbsoluteDragDirective } from '../absolute-drag/absolute-drag';
+import { AbsoluteDragDirective } from '../directives/absolute-drag/absolute-drag';
 @NgModule({
 	declarations: [AbsoluteDragDirective],
 	imports: [],
