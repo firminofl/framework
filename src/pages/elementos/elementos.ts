@@ -15,8 +15,12 @@ export class ElementosPage {
 
   abrirTela(){
     //Vai abrir a tela desejada, onde a mesma deve ser importada, assim, vou achamar a HomePage
-    this.navCtrl.push(HomePage);
+    this.navCtrl.push(HomePage, {}, {animate: true});
     this.presentToast();
+  }
+
+  popView(){
+    this.navCtrl.pop();
   }
 
   presentToast() {

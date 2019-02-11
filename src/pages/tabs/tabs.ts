@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { AboutPage } from '../about/about';
+import { DragDropPage } from '../dragdrop/dragdrop';
 import { ElementosPage } from '../elementos/elementos';
 import { HomePage } from '../home/home';
 
@@ -10,7 +10,7 @@ import { HomePage } from '../home/home';
 export class TabsPage {
 
   tab1Root = HomePage;
-  tab2Root = AboutPage;
+  tab2Root = DragDropPage;
   tab3Root = ElementosPage;
 
   constructor() {
