@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Ionic Blank
+      Montagem
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -9,13 +9,12 @@
 <ion-content fullscreen>
   <div *ngFor="let item of inputs">
     <div absolute-drag>
-      <input class="{{ item.class }}" type="{{ item.type }}" value="{{ item.value }}"/>
+      <input
+        class="{{ item.class }}"
+        type="{{ item.type }}"
+        value="{{ item.value }}"
+      />
     </div>
-    <br/>
+    <br />
   </div>
-
-  <br/><br/><br/><br/>
-  <button ion-button class="button" (click)="adicionarCampo()">
-    Adicionar campo
-  </button>
 </ion-content>

@@ -25674,6 +25674,12 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+page-dragdrop .button-created {
+  color: #000;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+}
+
 .toast-message {
   opacity: 0.8;
   border-radius: 5px;

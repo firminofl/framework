@@ -1,25 +1,32 @@
 import { Component } from "@angular/core";
-import { NavController } from "ionic-angular";
-import { NovoelementoPage } from '../novoelemento/novoelemento';
-
+import { NavController, NavParams } from "ionic-angular";
 
 @Component({
   selector: "page-dragdrop",
   templateUrl: "dragdrop.html"
 })
 export class DragDropPage {
-  inputs: Array<{ title: string; type: string; value: string; class:string }>;
+  inputs: Array<{ title: string; type: string; value: string; class: string }>;
+  elementoClicado: string;
 
-  constructor(public navCtrl: NavController) {
-    this.inputs = [
-      { title: "teste", type: "text", value: "valor", class:"text" },
-      { title: "teste2", type: "text", value: "valor2", class:"text" }
-    ];
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.inputs = [];
+    this.elementoClicado = this.navParams.get("elementoClicado");
+
+    console.log("Drag Drop: "+this.elementoClicado);
+    this.adicionarelementoClicado(this.elementoClicado);
   }
 
-  adicionarCampo() {
-    this.inputs.push({ title: "teste3", type: "button", value: "valor", class:"button" });
-    //Vai abrir a tela desejada, onde a mesma deve ser importada, assim, vou achamar a HomePage
-    this.navCtrl.push(NovoelementoPage);
+  adicionarelementoClicado(elementoClicado) {
+
+    console.log("elementoClicado: "+elementoClicado)
+    if (elementoClicado == "botao") {
+      this.inputs.push({
+        title: "teste3",
+        type: "button",
+        value: "valor",
+        class: "button"
+      });
+    }
   }
 }
