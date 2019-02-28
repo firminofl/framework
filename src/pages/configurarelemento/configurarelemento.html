@@ -1,18 +1,16 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Configurar elemento</ion-title>
+    <ion-title>Setup element</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <h4>Configurar elemento novo, siga as instruções a seguir</h4>
+  <h4>Give a legal nickname for the component</h4>
+  <p>Example: wonderful button </p>
   <br /><br />
 
   <!-- Input with placeholder -->
-  <ion-input id="id" [(ngModel)]="id" placeholder="id"></ion-input>
-
-  <!-- Input with placeholder -->
-  <ion-input id="value" [(ngModel)]="value" placeholder="value"></ion-input>
+  <ion-input id="nickname" [(ngModel)]="nickname" placeholder="Nickname for the component"></ion-input>
 
   <button ion-button class="button"  (click)="salvarConfig()">
     Salvar

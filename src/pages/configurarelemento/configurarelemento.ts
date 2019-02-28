@@ -1,5 +1,6 @@
+import { ElementosPage } from './../elementos/elementos';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, App } from "ionic-angular";
 import { DragDropPage } from '../dragdrop/dragdrop'
 
 @IonicPage()
@@ -9,19 +10,17 @@ import { DragDropPage } from '../dragdrop/dragdrop'
 })
 export class ConfigurarelementoPage {
   //Referencia com o elemento em HTML
-  id: string;
-  value: string;
+  nickname: string;
   elementoClicado: string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController, public appCtrl: App) {
     this.elementoClicado = this.navParams.get('elemento');
-    console.log("Configuracao elemento: "+this.elementoClicado )
-
   }
 
   salvarConfig(){
     //Vai abrir a tela desejada, onde a mesma deve ser importada, assim, vou achamar a HomePage
-    this.navCtrl.push(DragDropPage, {id: this.id, value: this.value, elementoClicado: this.elementoClicado});
+    this.navCtrl.push(DragDropPage, {nickname: this.nickname, elementoClicado: this.elementoClicado});
+    this.viewCtrl.dismiss();
   }
 
   popView(){
