@@ -25680,14 +25680,6 @@ page-dragdrop .button-created {
   font-size: 18px;
 }
 
-.toast-message {
-  opacity: 0.8;
-  border-radius: 5px;
-  text-align: center;
-  font-size: 3.0rem;
-  color: white;
-}
-
 page-home .insere-image-iot {
   background-image: url(../assets/imgs/logo-in-iot.png);
   background-repeat: no-repeat;

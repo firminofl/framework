@@ -1,4 +1,3 @@
-import { ElementosPage } from "./../elementos/elementos";
 import { Component } from "@angular/core";
 import { NavController, NavParams, AlertController } from "ionic-angular";
 
@@ -8,10 +7,6 @@ import { NavController, NavParams, AlertController } from "ionic-angular";
 })
 export class DragDropPage {
   inputs: Array<{ title: string; type: string; value: string; class: string }>;
-  elementoClicado: string;
-  testRadioOpen = false;
-  testRadioResult: any;
-  nickname;
 
   constructor(
     public navCtrl: NavController,
@@ -21,9 +16,10 @@ export class DragDropPage {
     this.inputs = [];
   }
 
-  adicionarelementoClicado(elementoClicado) {
+  addElementClicked(elementClicked) {
     let alert = this.alertCtrl.create({
       title: "Give a nickname to the component",
+      subTitle: "Exemple: My Wonderful button",
       inputs: [
         {
           name: "nickname",
@@ -35,20 +31,21 @@ export class DragDropPage {
           text: "Cancel",
           role: "cancel",
           handler: data => {
-            console.log("Cancel clicked");
+            console.log("Cancel clicked! Caution");
           }
         },
         {
           text: "Login",
           handler: data => {
-            if (elementoClicado == "button") {
+
+            if (elementClicked == "button") {
               this.inputs.push({
                 title: data.nickname,
                 type: "button",
                 value: data.nickname,
                 class: "btn"
               });
-            } else if (elementoClicado == "checkbox") {
+            } else if (elementClicked == "checkbox") {
               this.inputs.push({
                 title: data.nickname,
                 type: "checkbox",
@@ -65,7 +62,7 @@ export class DragDropPage {
 
   alertDialogChoice() {
     let alert = this.alertCtrl.create();
-    alert.setTitle("Select a component");
+    alert.setTitle("Select a component for drag and drop");
 
     alert.addInput({
       type: "radio",
@@ -97,7 +94,7 @@ export class DragDropPage {
       text: "Ok",
       handler: (data: any) => {
         console.log("Radio data:", data);
-        this.adicionarelementoClicado(data);
+        this.addElementClicked(data);
       }
     });
 
