@@ -1,15 +1,17 @@
-<ion-toolbar>
-  <ion-navbar>
-    <ion-buttons right>
-      <button ion-button ion-only (click)="alertDialogChoice()">
-        <ion-icon name="add-circle-outline"></ion-icon>
-      </button>
-    </ion-buttons>
-    <ion-title>
-      Add component
-    </ion-title>
-  </ion-navbar>
-</ion-toolbar>
+<ion-header no-border>
+  <ion-toolbar>
+    <ion-navbar>
+      <ion-buttons right>
+        <button ion-button icon-only (click)="alertDialogChoice()">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </button>
+      </ion-buttons>
+      <ion-title>
+        Add component
+      </ion-title>
+    </ion-navbar>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content fullscreen>
   <div *ngFor="let item of inputs">
