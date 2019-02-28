@@ -7,7 +7,6 @@ webpackJsonp([1],{
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ElementosPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(20);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__configurarelemento_configurarelemento__ = __webpack_require__(153);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -19,17 +18,48 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
-
 var ElementosPage = /** @class */ (function () {
-    function ElementosPage(navCtrl, navParams, viewCtrl) {
+    function ElementosPage(navCtrl, navParams, viewCtrl, appCtrl, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.viewCtrl = viewCtrl;
+        this.appCtrl = appCtrl;
+        this.alertCtrl = alertCtrl;
     }
     ElementosPage.prototype.abrirConfiguracao = function (elemento) {
-        //Vai abrir a tela desejada, onde a mesma deve ser importada, assim, vou achamar a HomePage
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__configurarelemento_configurarelemento__["a" /* ConfigurarelementoPage */], { elemento: elemento });
-        this.viewCtrl.dismiss();
+        var _this = this;
+        console.log("Elemento escolhido: " + elemento);
+        var alert = this.alertCtrl.create({
+            title: "Setup element",
+            subTitle: "Give a legal nickname for the component.\nExample: wonderful button",
+            inputs: [
+                {
+                    name: "nickname",
+                    placeholder: "nickname"
+                }
+            ],
+            buttons: [
+                {
+                    text: "Cancel",
+                    role: "cancel",
+                    handler: function (data) {
+                        console.log("Cancel clicked");
+                    }
+                },
+                {
+                    text: "Done",
+                    handler: function (data) {
+                        //this.informations = {elemento: elemento, nickname: data.nickname };
+                        //Vai abrir a tela desejada, onde a mesma deve ser importada, assim, vou achamar a HomePage
+                        //this.navCtrl.push(DragDropPage, {element: elemento, nickname: data.nickname });
+                        //this.navCtrl.push(ConfigurarelementoPage, {elemento});
+                        //this.viewCtrl.dismiss();
+                        _this.navCtrl.parent.select(1, { nickname: data.nickname });
+                    }
+                }
+            ]
+        });
+        alert.present();
     };
     ElementosPage.prototype.popView = function () {
         this.navCtrl.pop();
@@ -38,9 +68,10 @@ var ElementosPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "page-elementos",template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/elementos/elementos.html"*/'<ion-header absolute-drag>\n  <ion-navbar>\n    <ion-title>\n      Elements to create\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <ion-label>Examples</ion-label>\n  <!-- List of Text Items -->\n  <ion-list>\n    <ion-item>\n      <ion-label (click)="abrirConfiguracao(\'button\')">Button</ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label (click)="abrirConfiguracao(\'checkbox\')">Checkbox</ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label (click)="abrirConfiguracao(\'image\')">Image</ion-label>\n    </ion-item>\n    <ion-item>\n      <ion-label (click)="abrirConfiguracao(\'listview\')">Listview</ion-label>\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/elementos/elementos.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* ViewController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _e || Object])
     ], ElementosPage);
     return ElementosPage;
+    var _a, _b, _c, _d, _e;
 }());
 
 //# sourceMappingURL=elementos.js.map
@@ -119,7 +150,7 @@ var ConfigurarelementoPageModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_2__configurarelemento__["a" /* ConfigurarelementoPage */],
             ],
             imports: [
-                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__configurarelemento__["a" /* ConfigurarelementoPage */]),
+                __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* IonicPageModule */].forChild(__WEBPACK_IMPORTED_MODULE_2__configurarelemento__["a" /* ConfigurarelementoPage */]),
             ],
         })
     ], ConfigurarelementoPageModule);
@@ -151,15 +182,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var ConfigurarelementoPage = /** @class */ (function () {
-    function ConfigurarelementoPage(navCtrl, navParams) {
+    function ConfigurarelementoPage(navCtrl, navParams, viewCtrl, appCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
+        this.viewCtrl = viewCtrl;
+        this.appCtrl = appCtrl;
         this.elementoClicado = this.navParams.get('elemento');
-        console.log("Configuracao elemento: " + this.elementoClicado);
     }
     ConfigurarelementoPage.prototype.salvarConfig = function () {
         //Vai abrir a tela desejada, onde a mesma deve ser importada, assim, vou achamar a HomePage
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__dragdrop_dragdrop__["a" /* DragDropPage */], { nickname: this.nickname, elementoClicado: this.elementoClicado });
+        this.viewCtrl.dismiss();
     };
     ConfigurarelementoPage.prototype.popView = function () {
         this.navCtrl.pop();
@@ -168,9 +201,10 @@ var ConfigurarelementoPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-configurarelemento',template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/configurarelemento/configurarelemento.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Setup element</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <h4>Give a legal nickname for the component</h4>\n  <p>Example: wonderful button </p>\n  <br /><br />\n\n  <!-- Input with placeholder -->\n  <ion-input id="nickname" [(ngModel)]="nickname" placeholder="Nickname for the component"></ion-input>\n\n  <button ion-button class="button"  (click)="salvarConfig()">\n    Salvar\n  </button>\n\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/configurarelemento/configurarelemento.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* ViewController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* App */]) === "function" && _d || Object])
     ], ConfigurarelementoPage);
     return ConfigurarelementoPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=configurarelemento.js.map
@@ -243,7 +277,7 @@ var HomePage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-home',template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/home/home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>In.Iot</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content class="insere-image-iot">\n  <h2>Bem vindo ao In.IoT!</h2>\n  <br><br>\n  <p>\n    Esta aplicação tem por base lhe ajudar a montar sua aplicação. Conectando-se ao middleware, você terá acesso a informações de seu interesse\n    e sua capacidade de montar uma tela legal aqui para visualizá-las.\n  </p>\n  <br>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/home/home.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]])
     ], HomePage);
     return HomePage;
 }());
@@ -316,7 +350,7 @@ var AppModule = /** @class */ (function () {
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["f" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
                         { loadChildren: '../pages/configurarelemento/configurarelemento.module#ConfigurarelementoPageModule', name: 'ConfigurarelementoPage', segment: 'configurarelemento', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/elementos/elementos.module#ElementosPageModule', name: 'ElementosPage', segment: 'elementos', priority: 'low', defaultHistory: [] }
@@ -324,7 +358,7 @@ var AppModule = /** @class */ (function () {
                 }),
                 __WEBPACK_IMPORTED_MODULE_8__pages_configurarelemento_configurarelemento_module__["ConfigurarelementoPageModule"]
             ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicApp */]],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicApp */]],
             entryComponents: [
                 __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
                 __WEBPACK_IMPORTED_MODULE_4__pages_dragdrop_dragdrop__["a" /* DragDropPage */],
@@ -335,7 +369,7 @@ var AppModule = /** @class */ (function () {
             providers: [
                 __WEBPACK_IMPORTED_MODULE_9__ionic_native_status_bar__["a" /* StatusBar */],
                 __WEBPACK_IMPORTED_MODULE_10__ionic_native_splash_screen__["a" /* SplashScreen */],
-                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicErrorHandler */] }
+                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["e" /* IonicErrorHandler */] }
             ]
         })
     ], AppModule);
@@ -383,7 +417,7 @@ var MyApp = /** @class */ (function () {
     MyApp = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/app/app.html"*/'<ion-nav [root]="rootPage"></ion-nav>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/app/app.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__["a" /* StatusBar */], __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__["a" /* SplashScreen */]])
     ], MyApp);
     return MyApp;
 }());
@@ -458,7 +492,7 @@ var AbsoluteDrag = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["s" /* Directive */])({
             selector: '[absolute-drag]'
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Renderer */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* DomController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_core__["t" /* ElementRef */], __WEBPACK_IMPORTED_MODULE_0__angular_core__["V" /* Renderer */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["c" /* DomController */]])
     ], AbsoluteDrag);
     return AbsoluteDrag;
 }());
@@ -493,33 +527,6 @@ var DragDropPage = /** @class */ (function () {
         this.testRadioOpen = false;
         this.inputs = [];
     }
-    DragDropPage.prototype.nicknameComponent = function () {
-        var alert = this.alertCtrl.create({
-            title: "Give a nickname to the component",
-            inputs: [
-                {
-                    name: "nickname",
-                    placeholder: "nickname"
-                }
-            ],
-            buttons: [
-                {
-                    text: "Cancel",
-                    role: "cancel",
-                    handler: function (data) {
-                        console.log("Cancel clicked");
-                    }
-                },
-                {
-                    text: "Login",
-                    handler: function (data) {
-                        return data.nickname;
-                    }
-                }
-            ]
-        });
-        alert.present();
-    };
     DragDropPage.prototype.adicionarelementoClicado = function (elementoClicado) {
         var _this = this;
         var alert = this.alertCtrl.create({
@@ -549,6 +556,14 @@ var DragDropPage = /** @class */ (function () {
                                 class: "btn"
                             });
                         }
+                        else if (elementoClicado == "checkbox") {
+                            _this.inputs.push({
+                                title: data.nickname,
+                                type: "checkbox",
+                                value: data.nickname,
+                                class: "checkbox"
+                            });
+                        }
                     }
                 }
             ]
@@ -564,6 +579,11 @@ var DragDropPage = /** @class */ (function () {
             label: "Button",
             value: "button",
             checked: true
+        });
+        alert.addInput({
+            type: "radio",
+            label: "Checkbox",
+            value: "checkbox"
         });
         alert.addInput({
             type: "radio",
@@ -589,7 +609,7 @@ var DragDropPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: "page-dragdrop",template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-buttons right>\n      <button ion-button ion-only (click)="alertDialogChoice()">\n        <ion-icon name="add-circle-outline"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>\n      Add component\n    </ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <div *ngFor="let item of inputs">\n    <div absolute-drag>\n      <input\n        class="{{ item.class }}"\n        type="{{ item.type }}"\n        value="{{ item.value }}"\n      />\n    </div>\n    <br />\n  </div>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["i" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
     ], DragDropPage);
     return DragDropPage;
     var _a, _b, _c;

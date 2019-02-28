@@ -21,34 +21,6 @@ export class DragDropPage {
     this.inputs = [];
   }
 
-  nicknameComponent() {
-    let alert = this.alertCtrl.create({
-      title: "Give a nickname to the component",
-      inputs: [
-        {
-          name: "nickname",
-          placeholder: "nickname"
-        }
-      ],
-      buttons: [
-        {
-          text: "Cancel",
-          role: "cancel",
-          handler: data => {
-            console.log("Cancel clicked");
-          }
-        },
-        {
-          text: "Login",
-          handler: data => {
-            return data.nickname;
-          }
-        }
-      ]
-    });
-    alert.present();
-  }
-
   adicionarelementoClicado(elementoClicado) {
     let alert = this.alertCtrl.create({
       title: "Give a nickname to the component",
@@ -76,6 +48,13 @@ export class DragDropPage {
                 value: data.nickname,
                 class: "btn"
               });
+            } else if (elementoClicado == "checkbox") {
+              this.inputs.push({
+                title: data.nickname,
+                type: "checkbox",
+                value: data.nickname,
+                class: "checkbox"
+              });
             }
           }
         }
@@ -93,6 +72,12 @@ export class DragDropPage {
       label: "Button",
       value: "button",
       checked: true
+    });
+
+    alert.addInput({
+      type: "radio",
+      label: "Checkbox",
+      value: "checkbox"
     });
 
     alert.addInput({
