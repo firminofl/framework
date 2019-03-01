@@ -1,9 +1,15 @@
-<ion-header no-border>
+<ion-header>
   <ion-toolbar>
     <ion-navbar>
       <ion-buttons right>
-        <button ion-button icon-only (click)="alertDialogChoice()">
-          <ion-icon name="add-circle-outline"></ion-icon>
+        <button
+          ion-button
+          icon-end
+          solid
+          color="secondary"
+          (click)="alertDialogChoice()"
+        >
+          Add
         </button>
       </ion-buttons>
       <ion-title>
@@ -24,4 +30,17 @@
     </div>
     <br />
   </div>
+
+  <div *ngFor="let chbox of inputsChbox">
+    <div absolute-drag>
+      <input
+        class="{{ chbox.class }}"
+        type="{{ chbox.type }}"
+        value="{{ chbox.value }}"
+      />{{ chbox.value }}
+    </div>
+    <br />
+  </div>
+
+  <div id="chart_div" absolute-drag></div>
 </ion-content>

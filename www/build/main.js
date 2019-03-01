@@ -95,12 +95,100 @@ var DragDropPage = /** @class */ (function () {
         this.navParams = navParams;
         this.alertCtrl = alertCtrl;
         this.inputs = [];
+        this.inputsChbox = [];
     }
+    DragDropPage.prototype.pieChart = function () {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn("string", "Topping");
+        data.addColumn("number", "Slices");
+        data.addRows([
+            ["Mushrooms", 3],
+            ["Onions", 1],
+            ["Olives", 1],
+            ["Zucchini", 1],
+            ["Pepperoni", 2]
+        ]);
+        // Set chart options
+        var options = { title: "Chart", width: 400, height: 300 };
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.PieChart(document.getElementById("chart_div"));
+        chart.draw(data, options);
+    };
+    DragDropPage.prototype.barChart = function () {
+        var data = google.visualization.arrayToDataTable([
+            ["Element", "Density", { role: "style" }],
+            ["Copper", 8.94, "#b87333"],
+            ["Silver", 10.49, "silver"],
+            ["Gold", 19.3, "gold"],
+            ["Platinum", 21.45, "color: #e5e4e2"]
+        ]);
+        var view = new google.visualization.DataView(data);
+        view.setColumns([
+            0,
+            1,
+            {
+                calc: "stringify",
+                sourceColumn: 1,
+                type: "string",
+                role: "annotation"
+            },
+            2
+        ]);
+        var options = {
+            title: "Density of Precious Metals, in g/cm^3",
+            width: 600,
+            height: 400,
+            bar: { groupWidth: "95%" },
+            legend: { position: "none" }
+        };
+        var chart = new google.visualization.BarChart(document.getElementById("chart_div"));
+        chart.draw(view, options);
+    };
+    DragDropPage.prototype.histogramChart = function () {
+        var data = google.visualization.arrayToDataTable([
+            ["Dinosaur", "Length"],
+            ["Acrocanthosaurus (top-spined lizard)", 12.2],
+            ["Albertosaurus (Alberta lizard)", 9.1],
+            ["Allosaurus (other lizard)", 12.2],
+            ["Apatosaurus (deceptive lizard)", 22.9],
+            ["Archaeopteryx (ancient wing)", 0.9],
+            ["Argentinosaurus (Argentina lizard)", 36.6],
+            ["Baryonyx (heavy claws)", 9.1],
+            ["Brachiosaurus (arm lizard)", 30.5],
+            ["Ceratosaurus (horned lizard)", 6.1],
+            ["Coelophysis (hollow form)", 2.7],
+            ["Compsognathus (elegant jaw)", 0.9],
+            ["Deinonychus (terrible claw)", 2.7],
+            ["Diplodocus (double beam)", 27.1],
+            ["Dromicelomimus (emu mimic)", 3.4],
+            ["Gallimimus (fowl mimic)", 5.5],
+            ["Mamenchisaurus (Mamenchi lizard)", 21.0],
+            ["Megalosaurus (big lizard)", 7.9],
+            ["Microvenator (small hunter)", 1.2],
+            ["Ornithomimus (bird mimic)", 4.6],
+            ["Oviraptor (egg robber)", 1.5],
+            ["Plateosaurus (flat lizard)", 7.9],
+            ["Sauronithoides (narrow-clawed lizard)", 2.0],
+            ["Seismosaurus (tremor lizard)", 45.7],
+            ["Spinosaurus (spiny lizard)", 12.2],
+            ["Supersaurus (super lizard)", 30.5],
+            ["Tyrannosaurus (tyrant lizard)", 15.2],
+            ["Ultrasaurus (ultra lizard)", 30.5],
+            ["Velociraptor (swift robber)", 1.8]
+        ]);
+        var options = {
+            title: "Lengths of dinosaurs, in meters",
+            legend: { position: "none" }
+        };
+        var chart = new google.visualization.Histogram(document.getElementById("chart_div"));
+        chart.draw(data, options);
+    };
     DragDropPage.prototype.addElementClicked = function (elementClicked) {
         var _this = this;
         var alert = this.alertCtrl.create({
             title: "Give a nickname to the component",
-            subTitle: "Exemple: My Wonderful button",
+            subTitle: "Exemple: It's magic this",
             inputs: [
                 {
                     name: "nickname",
@@ -116,7 +204,7 @@ var DragDropPage = /** @class */ (function () {
                     }
                 },
                 {
-                    text: "Login",
+                    text: "Done",
                     handler: function (data) {
                         if (elementClicked == "button") {
                             _this.inputs.push({
@@ -127,16 +215,65 @@ var DragDropPage = /** @class */ (function () {
                             });
                         }
                         else if (elementClicked == "checkbox") {
-                            _this.inputs.push({
+                            _this.inputsChbox.push({
                                 title: data.nickname,
                                 type: "checkbox",
                                 value: data.nickname,
                                 class: "checkbox"
                             });
                         }
+                        else if (elementClicked == "graphic") {
+                            _this.alertDialogChoiceGraphic();
+                        }
                     }
                 }
             ]
+        });
+        alert.present();
+    };
+    DragDropPage.prototype.alertDialogChoiceGraphic = function () {
+        var _this = this;
+        var alert = this.alertCtrl.create();
+        alert.setTitle("Select a type of chart for drag and drop");
+        alert.addInput({
+            type: "radio",
+            label: "Pie chart",
+            value: "piechart",
+            checked: true
+        });
+        alert.addInput({
+            type: "radio",
+            label: "Bar chart",
+            value: "barchart"
+        });
+        alert.addInput({
+            type: "radio",
+            label: "Histogram",
+            value: "histogram"
+        });
+        /*alert.addInput({
+          type: "radio",
+          label: "Table chart",
+          value: "tablechart"
+        });*/
+        alert.addButton("Cancel");
+        alert.addButton({
+            text: "Ok",
+            handler: function (data) {
+                console.log("Radio data:", data);
+                if (data == "piechart") {
+                    _this.pieChart();
+                }
+                if (data == "barchart") {
+                    _this.barChart();
+                }
+                if (data == "histogram") {
+                    _this.histogramChart();
+                }
+                if (data == "tablechart") {
+                    //this.tableChart();
+                }
+            }
         });
         alert.present();
     };
@@ -155,37 +292,58 @@ var DragDropPage = /** @class */ (function () {
             label: "Checkbox",
             value: "checkbox"
         });
+        /*alert.addInput({
+          type: "radio",
+          label: "ListView",
+          value: "listview"
+        });*/
         alert.addInput({
             type: "radio",
-            label: "ListView",
-            value: "listview"
-        });
-        alert.addInput({
-            type: "radio",
-            label: "Graph",
-            value: "graph"
+            label: "Graphic",
+            value: "graphic"
         });
         alert.addButton("Cancel");
         alert.addButton({
             text: "Ok",
             handler: function (data) {
                 console.log("Radio data:", data);
-                _this.addElementClicked(data);
+                if (data == "graphic")
+                    _this.alertDialogChoiceGraphic();
+                else
+                    _this.addElementClicked(data);
             }
         });
         alert.present();
     };
     DragDropPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-dragdrop",template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/'<ion-header no-border>\n  <ion-toolbar>\n    <ion-navbar>\n      <ion-buttons right>\n        <button ion-button icon-only (click)="alertDialogChoice()">\n          <ion-icon name="add-circle-outline"></ion-icon>\n        </button>\n      </ion-buttons>\n      <ion-title>\n        Add component\n      </ion-title>\n    </ion-navbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <div *ngFor="let item of inputs">\n    <div absolute-drag>\n      <input\n        class="{{ item.class }}"\n        type="{{ item.type }}"\n        value="{{ item.value }}"\n      />\n    </div>\n    <br />\n  </div>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/
+            selector: "page-dragdrop",template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-navbar>\n      <ion-buttons right>\n        <button\n          ion-button\n          icon-end\n          solid\n          color="secondary"\n          (click)="alertDialogChoice()"\n        >\n          Add\n        </button>\n      </ion-buttons>\n      <ion-title>\n        Add component\n      </ion-title>\n    </ion-navbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <div *ngFor="let item of inputs">\n    <div absolute-drag>\n      <input\n        class="{{ item.class }}"\n        type="{{ item.type }}"\n        value="{{ item.value }}"\n      />\n    </div>\n    <br />\n  </div>\n\n  <div *ngFor="let chbox of inputsChbox">\n    <div absolute-drag>\n      <input\n        class="{{ chbox.class }}"\n        type="{{ chbox.type }}"\n        value="{{ chbox.value }}"\n      />{{ chbox.value }}\n    </div>\n    <br />\n  </div>\n\n  <div id="chart_div" absolute-drag></div>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
     ], DragDropPage);
     return DragDropPage;
+    var _a, _b, _c;
 }());
 
+/*tableChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn("string", "Name");
+    data.addColumn("number", "Salary");
+    data.addColumn("boolean", "Full Time Employee");
+    data.addRows([
+      ["Mike", { v: 10000, f: "$10,000" }, true],
+      ["Jim", { v: 8000, f: "$8,000" }, false],
+      ["Alice", { v: 12500, f: "$12,500" }, true],
+      ["Bob", { v: 7000, f: "$7,000" }, true]
+    ]);
+
+    var table = new google.visualization.Table(
+      document.getElementById("chart_div")
+    );
+
+    table.draw(data, { showRowNumber: true, width: "100%", height: "100%" });
+  }
+  */
 //# sourceMappingURL=dragdrop.js.map
 
 /***/ }),
