@@ -96,6 +96,9 @@ var DragDropPage = /** @class */ (function () {
         this.alertCtrl = alertCtrl;
         this.inputs = [];
         this.inputsChbox = [];
+        this.ios = "ios-unlock";
+        this.md = "md-unlock";
+        this.flag_of_lock = false;
     }
     DragDropPage.prototype.pieChart = function () {
         // Create the data table.
@@ -277,6 +280,18 @@ var DragDropPage = /** @class */ (function () {
         });
         alert.present();
     };
+    DragDropPage.prototype.changeStateOfButton = function () {
+        if (!this.flag_of_lock) {
+            this.ios = "ios-lock";
+            this.md = "md-lock";
+            this.flag_of_lock = true;
+        }
+        else {
+            this.ios = "ios-unlock";
+            this.md = "md-unlock";
+            this.flag_of_lock = false;
+        }
+    };
     DragDropPage.prototype.alertDialogChoice = function () {
         var _this = this;
         var alert = this.alertCtrl.create();
@@ -317,7 +332,7 @@ var DragDropPage = /** @class */ (function () {
     };
     DragDropPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: "page-dragdrop",template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-navbar>\n      <ion-buttons right>\n        <button\n          ion-button\n          icon-end\n          solid\n          color="secondary"\n          (click)="alertDialogChoice()"\n        >\n          Add\n        </button>\n      </ion-buttons>\n      <ion-title>\n        Add component\n      </ion-title>\n    </ion-navbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <div *ngFor="let item of inputs">\n    <div absolute-drag>\n      <input\n        class="{{ item.class }}"\n        type="{{ item.type }}"\n        value="{{ item.value }}"\n      />\n    </div>\n    <br />\n  </div>\n\n  <div *ngFor="let chbox of inputsChbox">\n    <div absolute-drag>\n      <input\n        class="{{ chbox.class }}"\n        type="{{ chbox.type }}"\n        value="{{ chbox.value }}"\n      />{{ chbox.value }}\n    </div>\n    <br />\n  </div>\n\n  <div id="chart_div" absolute-drag></div>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/
+            selector: "page-dragdrop",template:/*ion-inline-start:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/'<ion-header>\n  <ion-toolbar>\n    <ion-navbar>\n      <ion-buttons left>\n        <button (click)="changeStateOfButton()">\n          <ion-icon ios="{{ ios }}" md="{{ md }}"></ion-icon>\n        </button>\n      </ion-buttons>\n\n      <ion-buttons right>\n        <button\n          ion-button\n          icon-end\n          solid\n          color="secondary"\n          (click)="alertDialogChoice()"\n        >\n          Add\n        </button>\n      </ion-buttons>\n      <ion-title>\n        Add component\n      </ion-title>\n    </ion-navbar>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content fullscreen>\n  <div *ngFor="let item of inputs">\n    <div absolute-drag>\n      <input\n        class="{{ item.class }}"\n        type="{{ item.type }}"\n        value="{{ item.value }}"\n      />\n    </div>\n    <br />\n  </div>\n\n  <div *ngFor="let chbox of inputsChbox">\n    <div absolute-drag>\n      <input\n        class="{{ chbox.class }}"\n        type="{{ chbox.type }}"\n        value="{{ chbox.value }}"\n      />{{ chbox.value }}\n    </div>\n    <br />\n  </div>\n\n  <div id="chart_div" absolute-drag></div>\n</ion-content>\n'/*ion-inline-end:"/home/filipe/Documentos/workspaces/ionic/framework/src/pages/dragdrop/dragdrop.html"*/
         }),
         __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _c || Object])
     ], DragDropPage);

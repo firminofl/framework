@@ -15,6 +15,9 @@ export class DragDropPage {
     value: string;
     class: string;
   }>;
+  ios: string;
+  md: string;
+  flag_of_lock: boolean;
 
   constructor(
     public navCtrl: NavController,
@@ -23,6 +26,9 @@ export class DragDropPage {
   ) {
     this.inputs = [];
     this.inputsChbox = [];
+    this.ios = "ios-unlock";
+    this.md = "md-unlock";
+    this.flag_of_lock = false;
   }
 
   pieChart() {
@@ -225,6 +231,18 @@ export class DragDropPage {
     });
 
     alert.present();
+  }
+
+  changeStateOfButton() {
+    if (!this.flag_of_lock) { //False, we have to lock the page
+      this.ios = "ios-lock";
+      this.md = "md-lock";
+      this.flag_of_lock = true;
+    } else { //True, we have to unlock the page
+      this.ios = "ios-unlock";
+      this.md = "md-unlock";
+      this.flag_of_lock = false;
+    }
   }
 
   alertDialogChoice() {
