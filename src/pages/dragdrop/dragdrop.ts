@@ -245,6 +245,13 @@ export class DragDropPage {
     }
   }
 
+  exportProgram() {
+    let alert = this.alertCtrl.create();
+    alert.setTitle("Select a component for drag and drop");
+    alert.addButton("Cancel");
+    alert.present();
+  }
+
   alertDialogChoice() {
     let alert = this.alertCtrl.create();
     alert.setTitle("Select a component for drag and drop");
