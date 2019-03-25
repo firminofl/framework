@@ -7,7 +7,7 @@
         </button>
       </ion-buttons>
 
-      <ion-buttons right>
+      <ion-buttons *ngIf="!flag_of_lock" right>
         <button
           ion-button
           icon-end
@@ -16,6 +16,18 @@
           (click)="alertDialogChoice()"
         >
           Add
+        </button>
+      </ion-buttons>
+
+      <ion-buttons *ngIf="flag_of_lock" right>
+        <button
+          ion-button
+          icon-end
+          solid
+          color="primary"
+          (click)="exportProgram()"
+        >
+          Export
         </button>
       </ion-buttons>
       <ion-title>
